@@ -117,6 +117,12 @@ const AdminListing = () => {
               >
                 Manage Users
               </button>
+              <button
+                disabled
+                className="bg-gray-600 text-gray-400 px-6 py-2 rounded cursor-not-allowed"
+              >
+                View All Posts
+              </button>
             </div>
             <button
               onClick={toggleModal}

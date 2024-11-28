@@ -12,6 +12,7 @@ import OwnerProfile from './pages/Owner/ownerProfile.jsx';
 import AdminProfile from './pages/Admin/adminProfile.jsx';
 import ManageUsers from './pages/Owner/manageUsers.jsx';
 import ManagePosts from './pages/ManagePost.jsx';
+import ManageAllPosts from './pages/Owner/manageAllPost.jsx';
 
 function App() {
 
@@ -32,6 +33,7 @@ function App() {
         <Route path='/admin-profile' element={<AdminProfile />} />
         <Route path='/manage-user' element={<ManageUsers />} />
         <Route path='/manage-posts' element={<ManagePosts />} />
+        <Route path='/manage-all-posts' element={<ManageAllPosts />} />
       </Routes>
     </Router>
   );

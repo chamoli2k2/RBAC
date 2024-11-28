@@ -1,4 +1,5 @@
 import User from '../models/user.model.js';
+import Post from '../models/post.model.js';
 
 // Temporary route for owner registration
 const ownerRegister = async (req, res) => {
@@ -24,6 +25,37 @@ const ownerRegister = async (req, res) => {
         // Send response
         res.status(201).json({ user });
     } 
+    catch(err){
+        return res.status(500).json({msg: err.message});
+    }
+};
+
+// Toggle Aproval
+const toggleApproval = async (req, res) => {
+    try{
+        // Destructuring the request body
+        const postId = req.params.id;
+
+        // Check if the post exists
+        const post = await Post.findOne({ _id: postId });
+        if(!post){
+            return res.status(404).json({msg: 'Post not found'});
+        }
+
+        // Toggle the approval
+        if(post.isApproved){
+            post.isApproved = false;
+        }
+        else{
+            post.isApproved = true;
+        }
+
+        // Save the post
+        await post.save();
+
+        // Send response
+        res.status(200).json({ msg: 'Post approval toggled' });
+    }
     catch(err){
         return res.status(500).json({msg: err.message});
     }
@@ -55,6 +87,45 @@ const promote = async (req, res) => {
 
         // Send response
         res.status(200).json({msg: 'User promoted to Admin'});
+    }
+    catch(err){
+        return res.status(500).json({msg: err.message});
+    }
+};
+
+// Delete post
+const deletePost = async (req, res) => {
+    try{
+        // Destructuring the request body
+        const postId = req.params.id;
+
+        // Check if the post exists
+        const post = await Post.findById(postId);
+
+        if(!post){
+            return res.status(404).json({msg: 'Post not found'});
+        }
+
+        // Delete the post
+        await Post.deleteOne({ _id: postId });
+
+        // Send response
+        res.status(200).json({msg: 'Post deleted'});
+
+    }
+    catch(err){
+        return res.status(500).json({msg: err.message});
+    }   
+};
+
+// Find all the post
+const allPost = async (req, res) => {
+    try{
+        // Get all the post
+        const posts = await Post.find();
+
+        // Send response
+        res.status(200).json({ posts });
     }
     catch(err){
         return res.status(500).json({msg: err.message});
@@ -129,4 +200,4 @@ const showUser = async (req, res) => {
     }
 };
 
-export { ownerRegister, promote, demote, showAllUser, showUser };
+export { ownerRegister, promote, demote, showAllUser, showUser, deletePost, allPost, toggleApproval };

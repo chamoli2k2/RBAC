@@ -30,6 +30,10 @@ const OwnerListing = () => {
         }, 2000); // 1000ms = 1 second
     };
 
+    const handleManageAllPosts = () => {
+        navigate('/manage-all-posts');
+    };
+
 
   const handleProfile = () => navigate('/owner-profile');
 
@@ -117,6 +121,12 @@ const OwnerListing = () => {
                 className="bg-blue-600 hover:bg-blue-700 text-white px-6 py-2 rounded w-full"
               >
                 Manage Users
+              </button>
+              <button
+                onClick={handleManageAllPosts}
+                className="bg-yellow-600 hover:bg-yellow-700 text-white px-6 py-2 rounded w-full"
+              >
+                View All Posts
               </button>
             </div>
             <button
