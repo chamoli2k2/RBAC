@@ -24,6 +24,19 @@ The access hierarchy is as follows:
 
 ---
 
+### API Documentation
+
+For detailed information on the available API endpoints, including request formats, parameters, and example responses, refer to the [API Documentation on Postman](https://documenter.getpostman.com/view/21366695/2sAYBXBBDb). 
+
+This documentation provides:
+- **Overview of all endpoints**: Comprehensive list of all APIs categorized by functionality.
+- **Request & Response Examples**: Example payloads for easy integration.
+- **Error Handling**: Descriptions of possible errors and their solutions.
+- **Authentication Details**: Instructions for using JWT tokens for authorized endpoints.
+
+Use the Postman collection to explore, test, and integrate the API seamlessly into your application!
+
+---
 ## File Structure
 
 ```
