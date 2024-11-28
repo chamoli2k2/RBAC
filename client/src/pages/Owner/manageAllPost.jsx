@@ -1,16 +1,17 @@
 import { useEffect, useState } from 'react';
+import { useNavigate } from 'react-router-dom'; // Import useNavigate for navigation
 import axios from 'axios';
 import { BASE_URL } from '../../constants/constants.js';
 
 const ManageAllPosts = () => {
   const [posts, setPosts] = useState([]);
+  const navigate = useNavigate(); // Initialize navigate function
 
   const fetchAllPosts = async () => {
     try {
       const response = await axios.get(`${BASE_URL}/api/owner/get_all_post`, {
         headers: { Authorization: `Bearer ${localStorage.getItem('token')}` },
       });
-
       setPosts(response.data.posts);
     } catch (error) {
       alert('Failed to fetch posts');
@@ -31,14 +32,14 @@ const ManageAllPosts = () => {
 
   const toggleApproval = async (postId) => {
     try {
-      const response = await axios.put(
+      await axios.put(
         `${BASE_URL}/api/owner/toggle_approval/${postId}`,
         {},
         {
           headers: { Authorization: `Bearer ${localStorage.getItem('token')}` },
         }
       );
-        alert('Post approval toggled');
+      alert('Post approval toggled');
       fetchAllPosts(); // Refresh list
     } catch (error) {
       alert('Failed to toggle post approval');
@@ -51,7 +52,15 @@ const ManageAllPosts = () => {
 
   return (
     <div className="min-h-screen bg-gray-900 text-white p-8">
-      <h2 className="text-4xl font-bold mb-6">Manage All Posts</h2>
+      <div className="flex justify-between items-center mb-6">
+        <h2 className="text-4xl font-bold">Manage All Posts</h2>
+        <button
+          onClick={() => navigate('/owner-page')}
+          className="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded"
+        >
+          Back to Homepage
+        </button>
+      </div>
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
         {posts.map((post) => (
           <div
@@ -72,9 +81,9 @@ const ManageAllPosts = () => {
               </p>
               <div className="flex space-x-4">
                 <button
-                  onClick={() => toggleApproval(post._id, post.approved)}
+                  onClick={() => toggleApproval(post._id, post.isApproved)}
                   className={`px-4 py-2 rounded ${
-                    post.approved
+                    post.isApproved
                       ? 'bg-yellow-600 hover:bg-yellow-700 text-white'
                       : 'bg-green-600 hover:bg-green-700 text-white'
                   }`}
